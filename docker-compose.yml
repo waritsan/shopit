@@ -3,9 +3,11 @@ services:
   mongo:
     image: mongo
     restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
+    ports:
+      - 27017:27017
+    # environment:
+    #   MONGO_INITDB_ROOT_USERNAME: root
+    #   MONGO_INITDB_ROOT_PASSWORD: example
   backend:
     build:
       dockerfile: Dockerfile.dev
@@ -16,5 +18,5 @@ services:
     ports:
       - '4000:4000'
     environment:
-      MONGO_DATABASE: mongodb://root:example@mongo:27017/
+      MONGO_DATABASE: mongodb://mongo:27017/shopit
       
