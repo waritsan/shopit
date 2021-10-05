@@ -12,16 +12,18 @@ connectDatabase();
 const seedProducts = async () => {
     try {
         await Product.deleteMany();
-        console.log('Producted are deleted.');
+        // console.log('Producted are deleted.');
 
         await Product.insertMany(products);
-        console.log('All products are added.');
+        // console.log('All products are added.');
 
-        process.exit();
+        // process.exit();
     } catch (error) {
         console.log(error.message);
-        process.exit();
+        // process.exit();
     }
 }
 
-seedProducts();
+// seedProducts();
+
+module.exports = seedProducts;
