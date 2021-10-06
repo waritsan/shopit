@@ -45,7 +45,7 @@ describe('GET /product/:id', () => {
 describe('POST /product/new', () => {
     it('shoud create a new product', done => {
         request(app)
-            .post('/api/v1/product/new')
+            .post('/api/v1/admin/product/new')
             .send({
                 "name" : "Test name",
                 "price" : "100",
@@ -69,5 +69,25 @@ describe('POST /product/new', () => {
                 done();
             })
             .catch(err => done(err))
+    });
+});
+
+describe('PUT /admin/product/:id', () => {
+    it('shoud update the product', async () => {
+        const product = await Product.findOne({ name: "SanDisk Ultra 128GB SDXC UHS-I Memory Card up to 80MB/s" });
+
+        const res = await request(app)
+            .put(`/api/v1/admin/product/${product.id}`)
+            .send({
+                name: 'Updated Name',
+                stock: 0
+            })
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(200);
+        
+        assert(res.body.success);
+        assert.equal(res.body.product.name, 'Updated Name');
+        assert.equal(res.body.product.stock, 0);
     });
 });
