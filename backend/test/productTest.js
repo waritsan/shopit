@@ -9,6 +9,7 @@ beforeEach(async () => {
     await seedProducts();
 });
 
+// Test get all products
 describe('GET /products', () => {
    it('should return a list of products', done => {
         request(app)
@@ -26,6 +27,7 @@ describe('GET /products', () => {
    });
 });
 
+// Test get single product by ID
 describe('GET /product/:id', () => {
     it('should return a single product', async () => {
         const product = await Product.findOne({ name: "SanDisk Ultra 128GB SDXC UHS-I Memory Card up to 80MB/s" });
@@ -42,6 +44,7 @@ describe('GET /product/:id', () => {
    });
 });
 
+// Test create new product
 describe('POST /product/new', () => {
     it('shoud create a new product', done => {
         request(app)
@@ -72,8 +75,9 @@ describe('POST /product/new', () => {
     });
 });
 
+// Test update product
 describe('PUT /admin/product/:id', () => {
-    it('shoud update the product', async () => {
+    it('shoud update a product', async () => {
         const product = await Product.findOne({ name: "SanDisk Ultra 128GB SDXC UHS-I Memory Card up to 80MB/s" });
 
         const res = await request(app)
@@ -89,5 +93,22 @@ describe('PUT /admin/product/:id', () => {
         assert(res.body.success);
         assert.equal(res.body.product.name, 'Updated Name');
         assert.equal(res.body.product.stock, 0);
+    });
+});
+
+// Test delete product
+describe('/DELETE /api/v1/admin/product/:id', () => {
+    it('should delete a product', async () => {
+        const product = await Product.findOne({ name: "SanDisk Ultra 128GB SDXC UHS-I Memory Card up to 80MB/s" });
+
+        const res = await request(app)
+            .delete(`/api/v1/admin/product/${product.id}`)
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(200);
+        assert(res.body.success);
+
+        const deletedProduct = await Product.findById(product.id);
+        assert.equal(deletedProduct, null);
     });
 });
