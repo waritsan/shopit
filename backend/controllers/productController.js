@@ -9,7 +9,7 @@ exports.newProduct = catchAsyncErrors (async (req, res, next) => {
         success: true,
         product
     });
-})
+});
 
 // Get all products => /api/v1/products
 exports.getProducts = catchAsyncErrors (async (req, res, next) => {
@@ -20,7 +20,7 @@ exports.getProducts = catchAsyncErrors (async (req, res, next) => {
         count: products.length,
         products
     });
-})
+});
 
 // Get single product detail => /api/v1/product/:id
 
