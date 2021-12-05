@@ -5,6 +5,11 @@ const connectDatabase = require('./config/database');
 // Setting up config file
 dotenv.config({ path: 'config/config.env' });
 
+process.on('uncaughtException', err => {
+    console.log(`ERROR: ${err.stack}`);
+    console.log('Shutting down the server due to uncaught exception');
+    process.exit(1);
+});
 
 // Connect database
 connectDatabase();
