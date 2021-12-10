@@ -45,7 +45,7 @@ exports.getSingleProduct = catchAsyncErrors (async (req, res, next) => {
         success: true,
         product
     });
-})
+});
 
 // Update product => /api/v1/admin/product/:id
 exports.updateProduct = catchAsyncErrors (async (req, res, next) => {
@@ -65,7 +65,7 @@ exports.updateProduct = catchAsyncErrors (async (req, res, next) => {
         success: true,
         product
     });
-})
+});
 
 // Delete product => /api/v1/admin/product/:id
 exports.deleteProduct = catchAsyncErrors (async (req, res, next) => {
@@ -81,4 +81,4 @@ exports.deleteProduct = catchAsyncErrors (async (req, res, next) => {
         success: true,
         message: 'Product is deleted'
     });
-})
+});
