@@ -19,8 +19,8 @@ describe('GET /products', () => {
             .expect(200)
             .then(res => {
                 assert(res.body.success);
-                assert.equal(res.body.count, 9);
-                assert.equal(res.body.products.length, 9);
+                assert.equal(res.body.productCount, 9);
+                assert.equal(res.body.products.length, 4); // Product per page = 4
                 done();
             })
             .catch(err => done(err))
