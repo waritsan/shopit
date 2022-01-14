@@ -122,6 +122,26 @@ exports.getUserProfile = catchAsyncErrors (async (req, res, next) => {
     });
 });
 
+// Update user profile => /api/v1/me/update
+exports.updateProfile = catchAsyncErrors (async (req, res, next) => {
+    const newUserData = {
+        name: req.body.name,
+        email: req.body.email
+    }
+
+    // TODO: Update avatar
+
+    const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false
+    });
+
+    res.status(200).json({
+        success: true
+    });
+});
+
 // Update password => /api/v1/password/update
 exports.updatePassword = catchAsyncErrors (async (req, res, next) => {
     const user = await User.findById(req.user.id).select('+password');
